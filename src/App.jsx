@@ -472,17 +472,41 @@ export default function App() {
         )}
 
       </main>
+      {/* --- SOCIAL LINKS (VERSIONE INDISTRUTTIBILE) --- */}
+      <div className="fixed bottom-4 right-4 flex gap-3 z-50">
+        {/* Tasto GitHub */}
+        <a 
+          href="https://github.com/fidosesk" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="bg-slate-800 hover:bg-slate-700 text-white p-3 rounded-full shadow-lg transition-all hover:scale-110 flex items-center gap-2 group border border-slate-600"
+        >
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.28 1.15-.28 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"></path><path d="M9 18c-4.51 2-5-2-7-2"></path></svg>
+          <span className="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-500 font-bold whitespace-nowrap">GitHub</span>
+        </a>
+
+        {/* Tasto Discord */}
+        <a 
+          href="https://discord.gg/upCF43caXf"
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="bg-[#5865F2] hover:bg-[#4752C4] text-white p-3 rounded-full shadow-lg transition-all hover:scale-110 flex items-center gap-2 group border border-[#4752C4]"
+        >
+          <svg width="20" height="20" viewBox="0 0 127.14 96.36" fill="currentColor"><path d="M107.7,8.07A105.15,105.15,0,0,0,81.47,0a72.06,72.06,0,0,0-3.36,6.83A97.68,97.68,0,0,0,49,6.83,72.37,72.37,0,0,0,45.64,0,105.89,105.89,0,0,0,19.39,8.09C2.71,32.65-1.82,56.6.4,80.21a105.73,105.73,0,0,0,32.17,16.15,77.7,77.7,0,0,0,6.89-11.11,68.42,68.42,0,0,1-10.85-5.18c.91-.66,1.8-1.34,2.66-2a75.57,75.57,0,0,0,64.32,0c.87.71,1.76,1.39,2.66,2a68.68,68.68,0,0,1-10.87,5.19,77,77,0,0,0,6.89,11.1,105.25,105.25,0,0,0,32.19-16.14c3.39-28.9-5.46-52.66-21.41-72.14ZM42.45,65.69C36.18,65.69,31,60,31,53s5-12.74,11.43-12.74S54,46,53.89,53,48.84,65.69,42.45,65.69Zm42.24,0C78.41,65.69,73.25,60,73.25,53s5-12.74,11.44-12.74S96.23,46,96.12,53,91.08,65.69,84.69,65.69Z"/></svg>
+          <span className="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-500 font-bold whitespace-nowrap">Discord</span>
+        </a>
+      </div>
 
       <CharacterModal />
 
       <style dangerouslySetInnerHTML={{__html: `
         @keyframes bounce-short {
-          0% { transform: scale(0.9); opacity: 0; }
-          60% { transform: scale(1.05); opacity: 1; }
+          0% { transform: scale(0.95); }
+          50% { transform: scale(1.05); }
           100% { transform: scale(1); }
         }
         .animate-bounce-short {
-          animation: bounce-short 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+          animation: bounce-short 0.3s ease-out;
         }
       `}} />
     </div>
