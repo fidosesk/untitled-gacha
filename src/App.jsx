@@ -283,7 +283,21 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-100 font-sans text-slate-800">
+    <>
+      {/* SFONDO FISSO */}
+      <div 
+        className="fixed inset-0 -z-10 bg-slate-900" 
+        style={{ perspective: '1000px' }}
+      >
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-fixed no-repeat"
+          style={{ 
+            backgroundImage: `url('https://raw.githubusercontent.com/fidosesk/mythicgacha-files/refs/heads/main/sfondoosg.jpg')` 
+          }}
+        />
+        {/* Overlay per leggibilità */}
+        <div className="absolute inset-0 bg-slate-900/40 backdrop-blur-[3px]" />
+      </div>
       
       {/* HEADER */}
       <header className="bg-white shadow-sm sticky top-0 z-40 border-b border-slate-200">
@@ -509,6 +523,6 @@ export default function App() {
           animation: bounce-short 0.3s ease-out;
         }
       `}} />
-    </div>
+    </>
   );
 }
