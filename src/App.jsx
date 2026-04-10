@@ -123,8 +123,8 @@ export default function App() {
     for (let i = 0; i < amount; i++) {
       const roll = Math.random() * 100;
       let pulledRarity = "R";
-      if (roll <= 0.5) pulledRarity = "SSR";
-      else if (roll <= 10.5) pulledRarity = "SR";
+      if (roll <= 1) pulledRarity = "SSR";
+      else if (roll <= 16) pulledRarity = "SR";
 
       const availableCharacters = CHARACTER_POOL.filter(c => c.rarity === pulledRarity);
       const pulledChar = availableCharacters[Math.floor(Math.random() * availableCharacters.length)];
