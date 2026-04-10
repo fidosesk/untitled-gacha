@@ -1,5 +1,5 @@
-import React, { useState, useMemo, useEffect } from 'react';
-import { Sparkles, Library, X, Swords, Gem, ArrowDownUp } from 'lucide-react';
+import React, { useState, useMemo, useEffect, useRef } from 'react';
+import { Sparkles, Library, X, Swords, Gem, ArrowDownUp, Volume2, VolumeX } from 'lucide-react';
 
 // --- DATI DI GIOCO ---
 const CHARACTER_POOL = [
@@ -35,6 +35,11 @@ const CHARACTER_POOL = [
   { id: 32, name: "Maki", rarity: "SSR", bp: 20000, image: "https://raw.githubusercontent.com/fidosesk/mythicgacha-files/refs/heads/main/Maki.png" }
 ];
 
+const PLAYLIST = [
+  { id: 1, title: "Nonchalant Aura", url: "https://github.com/fidosesk/mythicgacha-files/raw/refs/heads/main/Chill%20point.mp3" },
+  { id: 2, title: "Low Cortisol Grind", url: "https://github.com/fidosesk/mythicgacha-files/raw/refs/heads/main/Low%20cortisol%20grind.mp3" }
+];
+
 const RARITY_COLORS = {
   SSR: "text-yellow-500 border-yellow-500 bg-yellow-50",
   SR: "text-purple-500 border-purple-500 bg-purple-50",
@@ -62,6 +67,35 @@ export default function App() {
   const [dungeonFloor, setDungeonFloor] = useState(1);
   const [battleLog, setBattleLog] = useState({ message: "", type: "" });
 
+// --- LOGICA MUSICA (PLAYLIST) ---
+  const audioRef = useRef(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [volume, setVolume] = useState(0.3);
+  const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
+
+  const handleNextTrack = () => {
+    setCurrentTrackIndex((prevIndex) => (prevIndex + 1) % PLAYLIST.length);
+  };
+
+  useEffect(() => {
+    if (isPlaying && audioRef.current) {
+      audioRef.current.play().catch(() => console.log("Riproduzione in attesa di interazione"));
+    }
+  }, [currentTrackIndex]);
+
+  useEffect(() => {
+    if (audioRef.current) audioRef.current.volume = volume;
+  }, [volume]);
+
+  const toggleMusic = () => {
+    if (isPlaying) {
+      audioRef.current.pause();
+    } else {
+      audioRef.current.play().catch(() => {});
+    }
+    setIsPlaying(!isPlaying);
+  };
+  
   // Generazione automatica di cristalli ogni 5 secondi
   useEffect(() => {
     const timer = setInterval(() => {
@@ -510,6 +544,43 @@ export default function App() {
           <span className="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-500 font-bold whitespace-nowrap">Discord</span>
         </a>
       </div>
+
+{/* PLAYER AUDIO CON CAMBIO AUTOMATICO */}
+<audio 
+  ref={audioRef} 
+  src={PLAYLIST[currentTrackIndex].url} 
+  onEnded={handleNextTrack} 
+/>
+
+<div className="fixed bottom-4 left-4 bg-slate-800/90 backdrop-blur-md p-3 rounded-2xl shadow-lg transition-all flex items-center gap-3 z-50 border border-slate-600 group">
+  <button onClick={toggleMusic} className="text-white hover:scale-110 transition-transform">
+    {isPlaying ? <Volume2 size={22} /> : <VolumeX size={22} className="text-red-400" />}
+  </button>
+
+  {/* Area che si espande al passaggio del mouse */}
+  <div className="flex items-center gap-3 overflow-hidden max-w-0 group-hover:max-w-md transition-all duration-500 ease-in-out">
+    
+    {/* NOME DELLA TRACCIA (Aggiunto qui) */}
+    <div className="flex flex-col min-w-[120px]">
+      <span className="text-[10px] text-indigo-400 font-bold uppercase tracking-wider">Now Playing</span>
+      <span className="text-xs text-white font-medium truncate whitespace-nowrap">
+        {PLAYLIST[currentTrackIndex].title}
+      </span>
+    </div>
+
+    <div className="h-8 w-px bg-slate-700" /> {/* Separatore visivo */}
+
+    <input
+      type="range" min="0" max="1" step="0.01" value={volume}
+      onChange={(e) => setVolume(parseFloat(e.target.value))}
+      className="w-20 accent-indigo-500 cursor-pointer"
+    />
+
+    <button onClick={handleNextTrack} className="text-slate-300 hover:text-white p-1 transition-colors" title="Prossima traccia">
+      <ArrowDownUp size={18} className="rotate-90" />
+    </button>
+  </div>
+</div>
 
       <CharacterModal />
 
